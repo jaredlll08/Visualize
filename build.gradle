@@ -25,12 +25,8 @@ minecraft {
     mappings = "snapshot_20161220"
 }
 repositories {
-    maven {
-        url "http://maven.epoxide.org"
-    }
 }
 dependencies {
-    deobfCompile "net.darkhax.bookshelf:Bookshelf:${version_bookshelf}"
 }
 
 processResources {

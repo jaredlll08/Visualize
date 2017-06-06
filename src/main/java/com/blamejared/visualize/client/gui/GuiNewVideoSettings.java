@@ -1,5 +1,6 @@
 package com.blamejared.visualize.client.gui;
 
+import com.blamejared.visualize.Visualize;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.resources.I18n;
@@ -78,6 +79,7 @@ public class GuiNewVideoSettings extends GuiScreen {
         if(button.enabled) {
             if(button.id == 200) {
                 this.mc.gameSettings.saveOptions();
+                Visualize.saveSettings();
                 this.mc.displayGuiScreen(this.parentGuiScreen);
             }
         }
