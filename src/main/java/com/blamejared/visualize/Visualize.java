@@ -1,6 +1,7 @@
 package com.blamejared.visualize;
 
 import com.blamejared.visualize.proxy.CommonProxy;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.*;
 
@@ -24,42 +25,54 @@ public class Visualize {
     @Mod.EventHandler
     public void construct(FMLConstructionEvent ev) throws IOException {
         boolean newRun = false;
-        optionMap.put("invertYMouse", "false");
-        optionMap.put("mouseSensitivity", "0.5");
-        optionMap.put("fov", "0.0");
-        optionMap.put("gamma", "0.0");
-        optionMap.put("saturation", "0.0");
-        optionMap.put("renderDistance", "12");
-        optionMap.put("guiScale", "0");
-        optionMap.put("particles", "0");
-        optionMap.put("bobView", "true");
-        optionMap.put("anaglyph3d", "false");
-        optionMap.put("maxFps", "120");
-        optionMap.put("fboEnable", "true");
-        optionMap.put("fancyGraphics", "false");
-        optionMap.put("ao", "2");
-        optionMap.put("renderClouds", "true");
-        optionMap.put("lang", "en_us");
-        optionMap.put("chatVisibility", "true");
-        optionMap.put("chatColors", "true");
-        optionMap.put("chatLinks", "true");
-        optionMap.put("chatLinksPrompt", "true");
-        optionMap.put("chatOpacity", "1.0");
-        optionMap.put("snooperEnabled", "true");
-        optionMap.put("fullscreen", "false");
-        optionMap.put("enableVsync", "true");
-        optionMap.put("useVbo", "true");
-        optionMap.put("hideServerAddress", "false");
-        optionMap.put("touchscreen", "false");
-        optionMap.put("mipmapLevels", "4");
-        optionMap.put("forceUnicodeFont", "false");
-        optionMap.put("entityShadows", "true");
-        optionMap.put("mainHand", "right");
-        optionMap.put("attackIndicator", "1");
-        optionMap.put("showSubtitles", "false");
-        optionMap.put("entityShadows", "true");
-        optionMap.put("autoJump", "true");
+    
+        optionMap.put("invertYMouse", String.valueOf(Minecraft.getMinecraft().gameSettings.invertMouse));
+        optionMap.put("mouseSensitivity", String.valueOf(Minecraft.getMinecraft().gameSettings.mouseSensitivity));
+        optionMap.put("fov", String.valueOf(Minecraft.getMinecraft().gameSettings.fovSetting));
+        optionMap.put("gamma", String.valueOf(Minecraft.getMinecraft().gameSettings.gammaSetting));
+        optionMap.put("saturation", String.valueOf(Minecraft.getMinecraft().gameSettings.saturation));
+        optionMap.put("renderDistance", String.valueOf(Minecraft.getMinecraft().gameSettings.renderDistanceChunks));
+        optionMap.put("guiScale", String.valueOf(Minecraft.getMinecraft().gameSettings.guiScale));
+        optionMap.put("particles", String.valueOf(Minecraft.getMinecraft().gameSettings.particleSetting));
+        optionMap.put("bobView", String.valueOf(Minecraft.getMinecraft().gameSettings.viewBobbing));
+        optionMap.put("anaglyph3d", String.valueOf(Minecraft.getMinecraft().gameSettings.anaglyph));
+        optionMap.put("maxFps", String.valueOf(Minecraft.getMinecraft().gameSettings.limitFramerate));
+        optionMap.put("fboEnable", String.valueOf(Minecraft.getMinecraft().gameSettings.fboEnable));
+        optionMap.put("fancyGraphics", String.valueOf(Minecraft.getMinecraft().gameSettings.fancyGraphics));
+        optionMap.put("ao", String.valueOf(Minecraft.getMinecraft().gameSettings.ambientOcclusion));
+        switch(Minecraft.getMinecraft().gameSettings.clouds) {
+            case 0:
+                optionMap.put("renderClouds", "false");
+                break;
+            case 1:
+                optionMap.put("renderClouds", "fast");
+                break;
+            case 2:
+                optionMap.put("renderClouds", "true");
+        }
+        optionMap.put("lang", String.valueOf(Minecraft.getMinecraft().gameSettings.language));
+        optionMap.put("chatVisibility", String.valueOf(Minecraft.getMinecraft().gameSettings.chatVisibility));
+        optionMap.put("chatColors", String.valueOf(Minecraft.getMinecraft().gameSettings.chatColours));
+        optionMap.put("chatLinks", String.valueOf(Minecraft.getMinecraft().gameSettings.chatLinks));
+        optionMap.put("chatLinksPrompt", String.valueOf(Minecraft.getMinecraft().gameSettings.chatLinksPrompt));
+        optionMap.put("chatOpacity", String.valueOf(Minecraft.getMinecraft().gameSettings.chatOpacity));
+        optionMap.put("snooperEnabled", String.valueOf(Minecraft.getMinecraft().gameSettings.snooperEnabled));
+        optionMap.put("fullscreen", String.valueOf(Minecraft.getMinecraft().gameSettings.fullScreen));
+        optionMap.put("enableVsync", String.valueOf(Minecraft.getMinecraft().gameSettings.enableVsync));
+        optionMap.put("useVbo", String.valueOf(Minecraft.getMinecraft().gameSettings.useVbo));
+        optionMap.put("hideServerAddress", String.valueOf(Minecraft.getMinecraft().gameSettings.hideServerAddress));
+        optionMap.put("touchscreen", String.valueOf(Minecraft.getMinecraft().gameSettings.touchscreen));
+        optionMap.put("mipmapLevels", String.valueOf(Minecraft.getMinecraft().gameSettings.mipmapLevels));
+        optionMap.put("forceUnicodeFont", String.valueOf(Minecraft.getMinecraft().gameSettings.forceUnicodeFont));
+        optionMap.put("entityShadows", String.valueOf(Minecraft.getMinecraft().gameSettings.entityShadows));
+        optionMap.put("mainHand", String.valueOf(Minecraft.getMinecraft().gameSettings.mainHand.name().toLowerCase()));
+        optionMap.put("attackIndicator", String.valueOf(Minecraft.getMinecraft().gameSettings.attackIndicator));
+        optionMap.put("showSubtitles", String.valueOf(Minecraft.getMinecraft().gameSettings.showSubtitles));
+        optionMap.put("entityShadows", String.valueOf(Minecraft.getMinecraft().gameSettings.entityShadows));
+        optionMap.put("autoJump", String.valueOf(Minecraft.getMinecraft().gameSettings.autoJump));
+        
         if(!centralOptions.exists()) {
+            System.out.println(">>>File doesn't exist!");
             centralOptions.getParentFile().mkdirs();
             centralOptions.createNewFile();
             BufferedWriter writer = new BufferedWriter(new FileWriter(centralOptions));
@@ -79,6 +92,7 @@ public class Visualize {
             for(String line : lines) {
                 optionMap.put(line.split(":")[0], line.split(":")[1]);
             }
+            System.out.println(optionMap);
         }
         if(options.exists()) {
             BufferedReader reader = new BufferedReader(new FileReader(options));
