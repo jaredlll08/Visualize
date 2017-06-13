@@ -4,12 +4,12 @@ buildscript {
         maven { url = "http://files.minecraftforge.net/maven" }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.0.0"
+version = "2.0.0"
 group = "com.blamejared.visualize"
 archivesBaseName = "visualize"
 
@@ -23,9 +23,9 @@ jar {
     }
 }
 minecraft {
-    version = "1.11.2-13.20.0.2299"
+    version = "1.12-14.21.0.2322"
     runDir = "run"
-    mappings = "snapshot_20161220"
+    mappings = "stable_31"
 }
 repositories {
 }

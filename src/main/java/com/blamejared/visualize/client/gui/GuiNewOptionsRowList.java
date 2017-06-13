@@ -67,19 +67,25 @@ public class GuiNewOptionsRowList extends GuiListExtended {
             this.buttonA = buttonAIn;
             this.buttonB = buttonBIn;
         }
+    
+        @Override
+        public void func_192633_a(int p_192633_1_, int p_192633_2_, int p_192633_3_, float p_192633_4_) {
         
-        public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) {
+        }
+    
+        public void func_192634_a(int p_192634_1_, int p_192634_2_, int p_192634_3_, int p_192634_4_, int p_192634_5_, int p_192634_6_, int p_192634_7_, boolean p_192634_8_, float p_192634_9_) {
             if(this.buttonA != null) {
-                this.buttonA.yPosition = y;
-                this.buttonA.drawButton(this.client, mouseX, mouseY);
+                this.buttonA.y = p_192634_3_;
+                this.buttonA.func_191745_a(this.client, p_192634_6_, p_192634_7_, p_192634_9_);
             }
-            
+        
             if(this.buttonB != null) {
-                this.buttonB.yPosition = y;
-                this.buttonB.drawButton(this.client, mouseX, mouseY);
+                this.buttonB.y = p_192634_3_;
+                this.buttonB.func_191745_a(this.client, p_192634_6_, p_192634_7_, p_192634_9_);
             }
         }
-        
+    
+    
         /**
          * Called when the mouse is clicked within this entry. Returning true means that something within this entry
          * was clicked and the list should not be dragged.
@@ -117,7 +123,5 @@ public class GuiNewOptionsRowList extends GuiListExtended {
             }
         }
         
-        public void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_) {
-        }
     }
 }
