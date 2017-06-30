@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import static com.blamejared.visualize.reference.Reference.*;
 
-@Mod(modid = MODID, name = NAME, version = VERSION)
+@Mod(modid = MODID, name = NAME, version = VERSION, clientSideOnly = true)
 public class Visualize {
     
     @SidedProxy(clientSide = "com.blamejared.visualize.proxy.ClientProxy", serverSide = "com.blamejared.visualize.proxy.CommonProxy")
@@ -25,7 +25,7 @@ public class Visualize {
     @Mod.EventHandler
     public void construct(FMLConstructionEvent ev) throws IOException {
         boolean newRun = false;
-    
+        
         optionMap.put("invertYMouse", String.valueOf(Minecraft.getMinecraft().gameSettings.invertMouse));
         optionMap.put("mouseSensitivity", String.valueOf(Minecraft.getMinecraft().gameSettings.mouseSensitivity));
         optionMap.put("fov", String.valueOf(Minecraft.getMinecraft().gameSettings.fovSetting));
@@ -72,7 +72,6 @@ public class Visualize {
         optionMap.put("autoJump", String.valueOf(Minecraft.getMinecraft().gameSettings.autoJump));
         
         if(!centralOptions.exists()) {
-            System.out.println(">>>File doesn't exist!");
             centralOptions.getParentFile().mkdirs();
             centralOptions.createNewFile();
             BufferedWriter writer = new BufferedWriter(new FileWriter(centralOptions));
@@ -136,7 +135,7 @@ public class Visualize {
     
     @Mod.EventHandler
     public void preInit(FMLPostInitializationEvent ev) {
-    
+        
         PROXY.registerEvents();
     }
     
